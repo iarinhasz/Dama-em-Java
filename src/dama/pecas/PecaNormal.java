@@ -12,6 +12,6 @@ public class PecaNormal extends PecaDama{
 	}
 	@Override
     public String toString() {
-        return "PN";
+        return "N";
     }
 }
