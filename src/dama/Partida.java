@@ -1,6 +1,7 @@
 package dama;
 
 import dama.pecas.PecaNormal;
+import tabuleiro.Pecas;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 
@@ -23,12 +24,28 @@ public class Partida {
 		return aux;
 	}
 	
+	public PecaDama performace(DamaPosicao sourceP, DamaPosicao targetP) {
+		Posicao source = sourceP.toPosicao();
+		Posicao target = targetP.toPosicao();
+		Pecas captura = makeMove(source, target);
+		return (PecaDama) captura;
+	}
+	
+	private Pecas makeMove(Posicao source, Posicao target) {
+		Pecas p = tab.removerPeca(source);
+		Pecas captura = tab.removerPeca(target);
+		tab.lugarPeca(p, target);
+		return captura;
+	}
+	
 	private void configurarSetupInicial() {
 	    // Colocar peças normais brancas nas linhas 0, 2 e 6
 	    for (int linha = 0; linha < 3; linha++) {
 	        for (int coluna = 0; coluna < tab.getColunas(); coluna++) {
 	            if ((linha + coluna) % 2 != 0) {
-	                tab.lugarPeca(new PecaNormal(tab, Cor.BRANCO), new Posicao(linha, coluna));
+	                DamaPosicao posicaoDama = new DamaPosicao((char)('a' + coluna), 8 - linha);
+	                Posicao posicaoTabuleiro = posicaoDama.toPosicao();
+	                tab.lugarPeca(new PecaNormal(tab, Cor.BRANCO), posicaoTabuleiro);
 	            }
 	        }
 	    }
@@ -37,7 +54,9 @@ public class Partida {
 	    for (int linha = 5; linha < tab.getLinhas(); linha++) {
 	        for (int coluna = 0; coluna < tab.getColunas(); coluna++) {
 	            if ((linha + coluna) % 2 != 0) {
-	                tab.lugarPeca(new PecaNormal(tab, Cor.VERMELHO), new Posicao(linha, coluna));
+	                DamaPosicao posicaoDama = new DamaPosicao((char)('a' + coluna), 8 - linha);
+	                Posicao posicaoTabuleiro = posicaoDama.toPosicao();
+	                tab.lugarPeca(new PecaNormal(tab, Cor.VERMELHO), posicaoTabuleiro);
 	            }
 	        }
 	    }

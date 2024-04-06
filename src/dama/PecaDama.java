@@ -3,9 +3,11 @@ import tabuleiro.Pecas;
 import tabuleiro.Tabuleiro;
 
 
+
 public class PecaDama extends Pecas {
 
 	private Cor cor;
+	private boolean dama; // Indica se a peça é uma dama (rainha)
 	
 	public PecaDama(Tabuleiro tab, Cor cor) {
 		super(tab);
@@ -15,6 +17,7 @@ public class PecaDama extends Pecas {
 	public Cor getCor() {
 		return cor;
 	}
-
-
+    public void tornarDama() {
+        this.dama = true;
+    }
 }
